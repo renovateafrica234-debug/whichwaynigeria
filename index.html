@@ -7,260 +7,197 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f8fafc; min-height: 100vh; }
+        body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; min-height: 100vh; line-height: 1.6; }
+        .flag-corner { position: fixed; top: 0; right: 0; width: 60px; height: 40px; z-index: 1001; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .flag-green { background: #008751; height: 50%; width: 100%; }
+        .flag-white { background: #ffffff; height: 50%; width: 100%; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-        header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); position: fixed; width: 100%; top: 0; z-index: 1000; padding: 1rem 0; }
+        header { background: #ffffff; border-bottom: 1px solid #e5e5e5; position: fixed; width: 100%; top: 0; z-index: 1000; padding: 0.75rem 0; }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; color: #22c55e; }
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; color: #008751; }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: #94a3b8; text-decoration: none; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: #22c55e; }
-        main { padding-top: 80px; }
-        .hero { padding: 4rem 0; text-align: center; background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, transparent 50%); }
-        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 1.25rem; color: #94a3b8; max-width: 600px; margin: 0 auto 2rem; }
-        .cta-button { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 1rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 600; transition: transform 0.3s, box-shadow 0.3s; border: none; cursor: pointer; }
-        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(34, 197, 94, 0.3); }
-        .dashboard { padding: 3rem 0; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
-        .stat-card { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; transition: transform 0.3s; }
-        .stat-card:hover { transform: translateY(-4px); border-color: rgba(34, 197, 94, 0.3); }
-        .stat-label { color: #94a3b8; font-size: 0.875rem; margin-bottom: 0.5rem; }
-        .stat-value { font-size: 2rem; font-weight: 700; color: #22c55e; }
-        .stat-change { font-size: 0.875rem; color: #22c55e; margin-top: 0.25rem; }
-        .section { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; }
-        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 12px; }
-        .calculator { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        @media (max-width: 768px) { .calculator { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } .nav-links { display: none; } }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 500; }
-        .form-group input, .form-group select { width: 100%; padding: 0.75rem 1rem; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; font-size: 1rem; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: #22c55e; }
-        .results-panel { background: rgba(15, 23, 42, 0.8); border-radius: 12px; padding: 1.5rem; }
-        .result-item { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.9rem; }
+        .nav-links a:hover { color: #008751; }
+        .slider-container { position: relative; width: 100%; height: 500px; overflow: hidden; margin-top: 60px; }
+        .slider { display: flex; transition: transform 0.5s ease; height: 100%; }
+        .slide { min-width: 100%; height: 100%; position: relative; background-size: cover; background-position: center; }
+        .slide-content { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 3rem 2rem 2rem; }
+        .slide h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .slide p { font-size: 1.1rem; opacity: 0.9; }
+        .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; }
+        .dot.active { background: #008751; }
+        .stats-section { padding: 3rem 0; background: #f8f9fa; }
+        .stats-header { text-align: center; margin-bottom: 2rem; }
+        .stats-header h2 { font-size: 2rem; color: #1a1a1a; margin-bottom: 0.5rem; }
+        .stats-header p { color: #666; font-size: 1rem; }
+        .party-comparison { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        @media (max-width: 768px) { .party-comparison { grid-template-columns: 1fr; } .slider-container { height: 300px; } .slide h2 { font-size: 1.5rem; } }
+        .party-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-left: 4px solid; }
+        .party-card.adc { border-left-color: #008751; }
+        .party-card.apc { border-left-color: #1e3a8a; }
+        .party-card.pdp { border-left-color: #dc2626; }
+        .party-name { font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .party-card.adc .party-name { color: #008751; }
+        .party-card.apc .party-name { color: #1e3a8a; }
+        .party-card.pdp .party-name { color: #dc2626; }
+        .polling-number { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .trend { font-size: 0.875rem; display: flex; align-items: center; gap: 4px; }
+        .trend.up { color: #008751; }
+        .trend.down { color: #dc2626; }
+        .trend.stable { color: #666; }
+        .detailed-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .stat-box { background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stat-box-label { font-size: 0.875rem; color: #666; margin-bottom: 0.25rem; }
+        .stat-box-value { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; }
+        .lga-section { padding: 3rem 0; background: white; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .section-title { font-size: 1.75rem; font-weight: 700; color: #1a1a1a; }
+        .filter-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.5rem 1rem; border: 1px solid #e5e5e5; background: white; border-radius: 6px; cursor: pointer; font-size: 0.875rem; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: #008751; color: white; border-color: #008751; }
+        .lga-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+        .lga-card { background: #f8f9fa; border-radius: 8px; padding: 1rem; border: 1px solid #e5e5e5; }
+        .lga-header { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
+        .lga-name { font-weight: 600; color: #1a1a1a; }
+        .lga-state { font-size: 0.75rem; color: #008751; background: rgba(0,135,81,0.1); padding: 0.25rem 0.5rem; border-radius: 4px; }
+        .lga-stats { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
+        .lga-stat { flex: 1; }
+        .lga-stat-label { font-size: 0.75rem; color: #666; }
+        .lga-stat-value { font-size: 1rem; font-weight: 600; }
+        .adc-bar { height: 4px; background: #e5e5e5; border-radius: 2px; overflow: hidden; margin-top: 0.5rem; }
+        .adc-fill { height: 100%; background: #008751; border-radius: 2px; }
+        .media-section { padding: 3rem 0; background: #f8f9fa; }
+        .media-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid #e5e5e5; overflow-x: auto; }
+        .media-tab { padding: 0.75rem 1.5rem; cursor: pointer; border-bottom: 2px solid transparent; font-weight: 500; color: #666; white-space: nowrap; }
+        .media-tab.active { color: #008751; border-bottom-color: #008751; }
+        .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem; }
+        .media-card { background: white; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 3px solid; }
+        .media-card.positive { border-left-color: #008751; }
+        .media-card.neutral { border-left-color: #f59e0b; }
+        .media-card.negative { border-left-color: #dc2626; }
+        .media-source { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .source-icon { width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: white; }
+        .source-tv { background: #dc2626; }
+        .source-radio { background: #1e3a8a; }
+        .source-print { background: #1a1a1a; }
+        .source-social { background: #008751; }
+        .source-intl { background: #7c3aed; }
+        .source-name { font-size: 0.875rem; font-weight: 600; color: #1a1a1a; }
+        .sentiment-badge { margin-left: auto; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; font-weight: 500; }
+        .sentiment-badge.positive { background: rgba(0,135,81,0.1); color: #008751; }
+        .sentiment-badge.neutral { background: rgba(245,158,11,0.1); color: #f59e0b; }
+        .sentiment-badge.negative { background: rgba(220,38,38,0.1); color: #dc2626; }
+        .media-title { font-weight: 600; color: #1a1a1a; margin-bottom: 0.5rem; line-height: 1.4; }
+        .media-excerpt { font-size: 0.875rem; color: #666; margin-bottom: 0.5rem; }
+        .media-meta { font-size: 0.75rem; color: #999; }
+        .calculator-section { padding: 3rem 0; background: white; }
+        .calculator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .calculator-grid { grid-template-columns: 1fr; } }
+        .calculator-form { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1a1a1a; font-size: 0.875rem; }
+        .form-group input, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #e5e5e5; border-radius: 6px; font-size: 1rem; background: white; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #008751; }
+        .calculate-btn { width: 100%; padding: 0.875rem; background: #008751; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+        .calculate-btn:hover { background: #006b41; }
+        .results-panel { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; display: none; }
+        .results-panel.show { display: block; }
+        .result-item { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e5e5; }
         .result-item:last-child { border-bottom: none; }
-        .chart-container { height: 300px; width: 100%; background: rgba(15, 23, 42, 0.5); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #64748b; }
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
-        .news-card { background: rgba(15, 23, 42, 0.6); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #22c55e; }
-        .news-source { font-size: 0.75rem; color: #22c55e; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
-        .news-title { font-weight: 600; margin-bottom: 0.5rem; line-height: 1.4; }
-        .news-meta { font-size: 0.875rem; color: #64748b; }
-        .ai-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 500; }
-        .pulse { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
+        .recommendations { margin-top: 1rem; padding: 1rem; background: rgba(0,135,81,0.05); border-radius: 6px; border-left: 3px solid #008751; }
+        .recommendations h4 { color: #008751; margin-bottom: 0.5rem; font-size: 0.875rem; }
+        .recommendations ul { list-style: none; font-size: 0.875rem; }
+        .recommendations li { padding: 0.25rem 0; padding-left: 1rem; position: relative; }
+        .recommendations li::before { content: "→"; position: absolute; left: 0; color: #008751; }
+        footer { background: #1a1a1a; color: white; padding: 2rem 0; text-align: center; }
+        footer a { color: #008751; }
+        .ai-status { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,135,81,0.1); color: #008751; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 500; }
+        .pulse { width: 8px; height: 8px; background: #008751; border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .states-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-        .state-card { background: rgba(15, 23, 42, 0.6); border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer; transition: all 0.3s; }
-        .state-card:hover { background: rgba(34, 197, 94, 0.1); transform: scale(1.05); }
-        .state-name { font-weight: 600; margin-bottom: 0.5rem; }
-        .state-stats { font-size: 0.875rem; color: #94a3b8; }
-        .recommendations { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 1.5rem; margin-top: 1rem; }
-        .recommendations h4 { color: #22c55e; margin-bottom: 1rem; }
-        .recommendations ul { list-style: none; }
-        .recommendations li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
-        .recommendations li::before { content: "→"; position: absolute; left: 0; color: #22c55e; }
-        footer { background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(255,255,255,0.1); padding: 2rem 0; margin-top: 4rem; text-align: center; color: #64748b; }
-        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #22c55e; animation: spin 1s ease-in-out infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Static HTML version that works immediately -->
-        <header>
-            <div class="container header-content">
-                <div class="logo">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                    WhichWayNigeria
-                </div>
-                <nav>
-                    <ul class="nav-links">
-                        <li><a href="#dashboard">Dashboard</a></li>
-                        <li><a href="#calculator">Calculator</a></li>
-                        <li><a href="#polling">Polling</a></li>
-                        <li><a href="#news">News</a></li>
-                        <li><a href="#states">States</a></li>
-                    </ul>
-                </nav>
-                <div class="ai-status">
-                    <div class="pulse"></div>
-                    <span id="ai-status-text">AI Active</span>
-                </div>
+    <div class="flag-corner"><div class="flag-green"></div><div class="flag-white"></div></div>
+    
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#008751" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                WhichWayNigeria
             </div>
-        </header>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#polling">Polling</a></li>
+                    <li><a href="#lga">LGA Data</a></li>
+                    <li><a href="#media">Media</a></li>
+                    <li><a href="#calculator">Calculator</a></li>
+                </ul>
+            </nav>
+            <div class="ai-status"><div class="pulse"></div><span id="ai-status">AI Active</span></div>
+        </div>
+    </header>
 
-        <main>
-            <section class="hero">
-                <div class="container">
-                    <h1>Building a New Nigeria Together with ADC</h1>
-                    <p>Join the movement for change. Track voter registration, view AI-powered real-time polling data, and be part of the coalition reshaping Nigeria's future.</p>
-                    <a href="https://adcregistration.ng/registration/membership" target="_blank" class="cta-button">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
-                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/>
-                        </svg>
-                        Register with ADC Officially
-                    </a>
-                    <p style="margin-top: 1rem; font-size: 0.875rem; color: #64748b;">
-                        Last AI Analysis: <span id="last-update">Just now</span>
-                    </p>
-                </div>
-            </section>
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <div class="slide" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 500%22><rect fill=%22%23008751%22 width=%221200%22 height=%22500%22/><text x=%22600%22 y=%22250%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22>Building a New Nigeria</text></svg>');">
+                <div class="slide-content"><h2>Building a New Nigeria Together</h2><p>Join the ADC movement for change and progress in 2027</p></div>
+            </div>
+            <div class="slide" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 500%22><rect fill=%22%231e3a8a%22 width=%221200%22 height=%22500%22/><text x=%22600%22 y=%22250%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22>Real-Time Polling Data</text></svg>');">
+                <div class="slide-content"><h2>Real-Time Polling Intelligence</h2><p>AI-powered analysis across all 774 LGAs in Nigeria</p></div>
+            </div>
+            <div class="slide" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 500%22><rect fill=%22%23dc2626%22 width=%221200%22 height=%22500%22/><text x=%22600%22 y=%22250%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22>Register to Vote</text></svg>');">
+                <div class="slide-content"><h2>Your Vote, Your Future</h2><p>Register with ADC and be part of the solution</p></div>
+            </div>
+        </div>
+        <div class="slider-dots"><div class="dot active" onclick="goToSlide(0)"></div><div class="dot" onclick="goToSlide(1)"></div><div class="dot" onclick="goToSlide(2)"></div></div>
+    </div>
 
-            <section id="dashboard" class="dashboard">
-                <div class="container">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-label">Total Registered Voters</div>
-                            <div class="stat-value">98.4M</div>
-                            <div class="stat-change">+2.7M new registrations</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">ADC Members</div>
-                            <div class="stat-value">12.6M</div>
-                            <div class="stat-change">+15% this quarter</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">ADC National Polling</div>
-                            <div class="stat-value" id="adc-polling">42%</div>
-                            <div class="stat-change">+4.2% momentum</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Youth Voters (18-35)</div>
-                            <div class="stat-value">45.3M</div>
-                            <div class="stat-change">ADC leads with 42%</div>
-                        </div>
-                    </div>
+    <section id="dashboard" class="stats-section">
+        <div class="container">
+            <div class="stats-header"><h2>National Polling Comparison - 2027 Presidential Election</h2><p>Real-time aggregate from 15+ polling sources across Nigeria</p></div>
+            <div class="party-comparison">
+                <div class="party-card adc"><div class="party-name">ADC (African Democratic Congress)</div><div class="polling-number" id="adc-polling">42.3%</div><div class="trend up"><span>↑</span> +4.2% this month</div><div style="margin-top: 1rem; font-size: 0.875rem; color: #666;"><strong>Projection:</strong> Leading in 18 states<br><strong>Youth (18-35):</strong> 48% support<br><strong>Momentum:</strong> High</div></div>
+                <div class="party-card apc"><div class="party-name">APC (All Progressives Congress)</div><div class="polling-number" id="apc-polling">35.1%</div><div class="trend down"><span>↓</span> -2.8% this month</div><div style="margin-top: 1rem; font-size: 0.875rem; color: #666;"><strong>Projection:</strong> Leading in 12 states<br><strong>60+ age group:</strong> 41% support<br><strong>Momentum:</strong> Declining</div></div>
+                <div class="party-card pdp"><div class="party-name">PDP (Peoples Democratic Party)</div><div class="polling-number" id="pdp-polling">18.7%</div><div class="trend stable"><span>→</span> +0.3% this month</div><div style="margin-top: 1rem; font-size: 0.875rem; color: #666;"><strong>Projection:</strong> Leading in 6 states<br><strong>Urban centers:</strong> 24% support<br><strong>Momentum:</strong> Stable</div></div>
+            </div>
+            <div class="detailed-stats">
+                <div class="stat-box"><div class="stat-box-label">Total Registered Voters</div><div class="stat-box-value">98.4 Million</div></div>
+                <div class="stat-box"><div class="stat-box-label">ADC Members Nationwide</div><div class="stat-box-value">12.6 Million</div></div>
+                <div class="stat-box"><div class="stat-box-label">New Registrations (2025)</div><div class="stat-box-value">2.7 Million</div></div>
+                <div class="stat-box"><div class="stat-box-label">Youth Voters (18-35)</div><div class="stat-box-value">45.3 Million</div></div>
+                <div class="stat-box"><div class="stat-box-label">States ADC Leads</div><div class="stat-box-value">18 States + FCT</div></div>
+                <div class="stat-box"><div class="stat-box-label">Daily Polling Coverage</div><div class="stat-box-value">774 LGAs</div></div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;"><a href="https://adcregistration.ng/registration/membership" target="_blank" class="calculate-btn" style="display: inline-block; width: auto; padding: 1rem 2rem; text-decoration: none;">Register with ADC Officially →</a></div>
+        </div>
+    </section>
 
-                    <div id="calculator" class="section">
-                        <h2 class="section-title">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
-                                <rect x="4" y="2" width="16" height="20" rx="2"/>
-                                <line x1="8" y1="6" x2="16" y2="6"/>
-                                <line x1="8" y1="10" x2="16" y2="10"/>
-                                <line x1="8" y1="14" x2="12" y2="14"/>
-                            </svg>
-                            LGA Registration Rate Calculator
-                        </h2>
-                        <div class="calculator">
-                            <form id="calculator-form">
-                                <div class="form-group">
-                                    <label>Select State</label>
-                                    <select id="state-select" required>
-                                        <option value="">Choose a state</option>
-                                        <option value="Abia">Abia</option>
-                                        <option value="Adamawa">Adamawa</option>
-                                        <option value="Akwa Ibom">Akwa Ibom</option>
-                                        <option value="Anambra">Anambra</option>
-                                        <option value="Bauchi">Bauchi</option>
-                                        <option value="Bayelsa">Bayelsa</option>
-                                        <option value="Benue">Benue</option>
-                                        <option value="Borno">Borno</option>
-                                        <option value="Cross River">Cross River</option>
-                                        <option value="Delta">Delta</option>
-                                        <option value="Ebonyi">Ebonyi</option>
-                                        <option value="Edo">Edo</option>
-                                        <option value="Ekiti">Ekiti</option>
-                                        <option value="Enugu">Enugu</option>
-                                        <option value="Gombe">Gombe</option>
-                                        <option value="Imo">Imo</option>
-                                        <option value="Jigawa">Jigawa</option>
-                                        <option value="Kaduna">Kaduna</option>
-                                        <option value="Kano">Kano</option>
-                                        <option value="Katsina">Katsina</option>
-                                        <option value="Kebbi">Kebbi</option>
-                                        <option value="Kogi">Kogi</option>
-                                        <option value="Kwara">Kwara</option>
-                                        <option value="Lagos">Lagos</option>
-                                        <option value="Nasarawa">Nasarawa</option>
-                                        <option value="Niger">Niger</option>
-                                        <option value="Ogun">Ogun</option>
-                                        <option value="Ondo">Ondo</option>
-                                        <option value="Osun">Osun</option>
-                                        <option value="Oyo">Oyo</option>
-                                        <option value="Plateau">Plateau</option>
-                                        <option value="Rivers">Rivers</option>
-                                        <option value="Sokoto">Sokoto</option>
-                                        <option value="Taraba">Taraba</option>
-                                        <option value="Yobe">Yobe</option>
-                                        <option value="Zamfara">Zamfara</option>
-                                        <option value="FCT">FCT</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>LGA Population (Eligible Voters)</label>
-                                    <input type="number" id="population" placeholder="e.g., 50000" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>Target Registration (%)</label>
-                                    <input type="number" id="target" value="60" min="1" max="100" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Current ADC Members</label>
-                                    <input type="number" id="current" placeholder="e.g., 15000" required />
-                                </div>
-                                <button type="submit" class="cta-button">Calculate Performance</button>
-                            </form>
-                            
-                            <div id="results" class="results-panel" style="display: none;">
-                                <h3 style="margin-bottom: 1rem; color: #22c55e;">Performance Analysis</h3>
-                                <div class="result-item"><span>Current Registration Rate</span><strong id="res-percentage">0%</strong></div>
-                                <div class="result-item"><span>Target Voters</span><strong id="res-target">0</strong></div>
-                                <div class="result-item"><span>Gap to Target</span><strong id="res-gap" style="color: #ef4444;">0</strong></div>
-                                <div class="result-item"><span>Performance Rating</span><strong id="res-performance">-</strong></div>
-                                <div class="recommendations">
-                                    <h4>AI-Generated Recommendations</h4>
-                                    <ul id="res-recommendations"></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <section id="lga" class="lga-section">
+        <div class="container">
+            <div class="section-header"><h2 class="section-title">LGA-Level Deep Dive: Polling & Registration</h2><div class="filter-buttons"><button class="filter-btn active" onclick="filterLGA('all')">All Regions</button><button class="filter-btn" onclick="filterLGA('north')">North</button><button class="filter-btn" onclick="filterLGA('south')">South</button><button class="filter-btn" onclick="filterLGA('east')">East</button><button class="filter-btn" onclick="filterLGA('west')">West</button></div></div>
+            <div class="lga-grid" id="lga-grid"></div>
+        </div>
+    </section>
 
-                    <div id="polling" class="section">
-                        <h2 class="section-title">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
-                                <path d="M3 3v18h18"/>
-                                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-                            </svg>
-                            AI-Powered Polling Trends
-                        </h2>
-                        <div class="chart-container">
-                            <div>Interactive Chart Loading...<br><small>Polling data: ADC 42% | APC 35% | PDP 18% | Others 5%</small></div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
-                            <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #22c55e;">
-                                <div style="font-size: 0.875rem; color: #94a3b8;">Youth Surge</div>
-                                <div style="font-weight: 600; margin-top: 0.5rem;">ADC leads among voters aged 18-35 with 42% support</div>
-                            </div>
-                            <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #22c55e;">
-                                <div style="font-size: 0.875rem; color: #94a3b8;">Regional Strength</div>
-                                <div style="font-weight: 600; margin-top: 0.5rem;">Strong performance in South-East and South-South</div>
-                            </div>
-                            <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #22c55e;">
-                                <div style="font-size: 0.875rem; color: #94a3b8;">Momentum Building</div>
-                                <div style="font-weight: 600; margin-top: 0.5rem;">Consistent +4.2% month-over-month growth</div>
-                            </div>
-                        </div>
-                    </div>
+    <section id="media" class="media-section">
+        <div class="container">
+            <h2 class="section-title">Comprehensive Media Coverage Analysis</h2>
+            <p style="color: #666; margin-bottom: 1.5rem;">Aggregating from TV, Radio, Print, Social Media & International sources with Nigeria presence</p>
+            <div class="media-tabs"><div class="media-tab active" onclick="filterMedia('all')">All Sources</div><div class="media-tab" onclick="filterMedia('tv')">TV</div><div class="media-tab" onclick="filterMedia('radio')">Radio</div><div class="media-tab" onclick="filterMedia('print')">Print</div><div class="media-tab" onclick="filterMedia('social')">Social</div><div class="media-tab" onclick="filterMedia('intl')">International</div></div>
+            <div class="media-grid" id="media-grid"></div>
+        </div>
+    </section>
 
-                    <div id="news" class="section">
-                        <h2 class="section-title">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
-                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
-                                <path d="M18 14h-8"/>
-                                <path d="M15 18h-5"/>
-                                <path d="M10 6h8v4h-8V6Z"/>
-                            </svg>
-                            Media Coverage Aggregator
-                        </h2>
-                        <p style="color: #94a3b8; margin-bottom: 1.5rem;">Real-time aggregation with AI sentiment analysis from mainstream media outlets across Nigeria.</p>
-                        <div class="news-grid">
-                            <div class="news-card">
-                                <div class="news-source">Premium Times • positive</div>
-                                <div class="news-title">ADC Coalition Gains Momentum Across Northern States</div>
-                                <div class="news-meta">2 hours ago</div>
-                            </div>
-                            <div class="news-card">
-                                <div class="news-source">The Guardian Nigeria • positive</div>
-                                <div class="news-title">2027 Election: ADC Presents Alternative Vision for Nigeria</div>
-                                <div c
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">LGA Registration Performance Calculator</h2>
+            <div class="calculator-grid">
+                <div class="calculator-form">
+                    <form id="calc-form">
+                        <div class="form-group"><label>Select State</label><select id="state" required><option value="">Choose a state</option><option value="Abia">Abia</option><option value="Adamawa">Adamawa</option><option value="Akwa Ibom">Akwa Ibom</option><option value="Anambra">Anambra</option><option value="Bauchi">Bauchi</option><option value="Bayelsa">Bayelsa</option><option value="Benue">Benue</option><option value="Borno">Borno</option><option value="Cross River">Cross River</option><option value="Delta">Delta</option><option value="Ebonyi">Ebonyi</option><option value="Edo">Edo</option><option value="Ekiti">Ekiti</option><option value="Enugu">Enugu</option><option value="Gombe">Gombe</option><option value="Imo">Imo</option><option value="Jigawa">Jigawa</option><option value="Kaduna">Kaduna</option><option value="Kano">Kano</option><option value="Katsina">Katsina</option><option value="Kebbi">Kebbi</option><option value="Kogi">Kogi</option><option value="Kwara">Kwara</option><option value="Lagos">Lagos</option><option value="Nasarawa">Nasarawa</option><option value="Niger">Niger</option><option value="Ogun">Ogun</option><option value="Ondo">Ondo</option><option value="Osun">Osun</option><option value="Oyo">Oyo</option><option value="Plateau">Plateau</option><option value="Rivers">Rivers</option><option value="Sokoto">Sokoto</option><option value="Taraba">Taraba</option><option value="Yobe">Yobe</option><option value="Zamfara">Zamfara</option><option value="FCT">FCT Abuja</option></select></div>
+                        <div class="form-group"><label>LGA Name</label><input type="text" id="lga-name" placeholder="e.g., Ikeja" required /></div>
+                        <div class="form-group"><label>Total Eligible Voters in LGA</label><input type="number" id="population" placeholder="e.g., 50000" required /></div>
+                        <div class="form-group"><label>Target Registration (%)</label><input type="number" id="target" value="60" min="1" max="100" /></div>
+       
