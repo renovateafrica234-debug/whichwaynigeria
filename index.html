@@ -3,201 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhichWayNigeria - ADC 2027 Election Command Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>WhichWayNigeria - Be The Change | ADC 2027</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; min-height: 100vh; line-height: 1.6; }
-        .flag-corner { position: fixed; top: 0; right: 0; width: 60px; height: 40px; z-index: 1001; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .flag-green { background: #008751; height: 50%; width: 100%; }
-        .flag-white { background: #ffffff; height: 50%; width: 100%; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-        header { background: #ffffff; border-bottom: 1px solid #e5e5e5; position: fixed; width: 100%; top: 0; z-index: 1000; padding: 0.75rem 0; }
-        .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; color: #008751; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: #666; text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.9rem; }
-        .nav-links a:hover { color: #008751; }
-        .slider-container { position: relative; width: 100%; height: 500px; overflow: hidden; margin-top: 60px; }
-        .slider { display: flex; transition: transform 0.5s ease; height: 100%; }
-        .slide { min-width: 100%; height: 100%; position: relative; background-size: cover; background-position: center; }
-        .slide-content { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 3rem 2rem 2rem; }
-        .slide h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .slide p { font-size: 1.1rem; opacity: 0.9; }
-        .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; }
-        .dot.active { background: #008751; }
-        .stats-section { padding: 3rem 0; background: #f8f9fa; }
-        .stats-header { text-align: center; margin-bottom: 2rem; }
-        .stats-header h2 { font-size: 2rem; color: #1a1a1a; margin-bottom: 0.5rem; }
-        .stats-header p { color: #666; font-size: 1rem; }
-        .party-comparison { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
-        @media (max-width: 768px) { .party-comparison { grid-template-columns: 1fr; } .slider-container { height: 300px; } .slide h2 { font-size: 1.5rem; } }
-        .party-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-left: 4px solid; }
-        .party-card.adc { border-left-color: #008751; }
-        .party-card.apc { border-left-color: #1e3a8a; }
-        .party-card.pdp { border-left-color: #dc2626; }
-        .party-name { font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
-        .party-card.adc .party-name { color: #008751; }
-        .party-card.apc .party-name { color: #1e3a8a; }
-        .party-card.pdp .party-name { color: #dc2626; }
-        .polling-number { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.25rem; }
-        .trend { font-size: 0.875rem; display: flex; align-items: center; gap: 4px; }
-        .trend.up { color: #008751; }
+        :root { --adc-green: #008751; --adc-dark: #006b41; --nigerian-green: #008751; --deep-blue: #1a1a2e; --warm-white: #fafaf9; --accent-gold: #d4af37; }
+        body { font-family: 'Inter', sans-serif; background: var(--warm-white); color: #1a1a1a; overflow-x: hidden; }
+        
+        /* Nigerian Flag Ribbon */
+        .flag-ribbon { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--nigerian-green) 33%, white 33%, white 66%, var(--nigerian-green) 66%); z-index: 9999; }
+        
+        /* Navigation */
+        nav { position: fixed; top: 4px; left: 0; right: 0; background: rgba(250,250,249,0.95); backdrop-filter: blur(20px); z-index: 1000; padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 900; font-size: 1.5rem; color: var(--adc-green); letter-spacing: -0.02em; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: #444; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-links a:hover { color: var(--adc-green); }
+        .cta-nav { background: var(--adc-green); color: white !important; padding: 0.75rem 1.5rem; border-radius: 50px; }
+        .cta-nav:hover { background: var(--adc-dark); }
+        
+        /* Hero Section - MASSIVE Typography */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 8rem 2rem 4rem; background: linear-gradient(135deg, var(--warm-white) 0%, #f0f0eb 100%); overflow: hidden; }
+        .hero-bg-text { position: absolute; font-size: 20vw; font-weight: 900; color: rgba(0,135,81,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; font-family: 'Playfair Display', serif; }
+        .hero-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+        .hero-eyebrow { color: var(--adc-green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+        .hero-eyebrow::before { content: ""; width: 50px; height: 2px; background: var(--adc-green); }
+        .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; line-height: 0.95; color: var(--deep-blue); margin-bottom: 2rem; letter-spacing: -0.03em; }
+        .hero-headline span { color: var(--adc-green); display: block; }
+        .hero-subtext { font-size: clamp(1.125rem, 2vw, 1.5rem); color: #555; max-width: 600px; line-height: 1.6; margin-bottom: 3rem; font-weight: 400; }
+        .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-primary { background: var(--adc-green); color: white; padding: 1.25rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid var(--adc-green); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,135,81,0.3); }
+        .btn-secondary { background: transparent; color: var(--deep-blue); padding: 1.25rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem; border: 2px solid var(--deep-blue); transition: all 0.3s; }
+        .btn-secondary:hover { background: var(--deep-blue); color: white; }
+        
+        /* Stats Ticker */
+        .stats-ticker { background: var(--deep-blue); color: white; padding: 2rem 0; overflow: hidden; }
+        .ticker-content { display: flex; gap: 4rem; animation: ticker 30s linear infinite; white-space: nowrap; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .ticker-item { display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.125rem; }
+        .ticker-number { font-size: 2rem; color: var(--adc-green); }
+        
+        /* Polling Section - Bold Cards */
+        .polling-section { padding: 8rem 2rem; background: white; }
+        .section-header { max-width: 1400px; margin: 0 auto 4rem; text-align: center; }
+        .section-eyebrow { color: var(--adc-green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; color: var(--deep-blue); line-height: 1.1; }
+        .polling-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        @media (max-width: 968px) { .polling-grid { grid-template-columns: 1fr; } .nav-links { display: none; } }
+        .party-card { background: white; border-radius: 24px; padding: 3rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 2px solid #f0f0eb; transition: all 0.3s; position: relative; overflow: hidden; }
+        .party-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; }
+        .party-card.adc::before { background: var(--adc-green); }
+        .party-card.apc::before { background: #1e3a8a; }
+        .party-card.pdp::before { background: #dc2626; }
+        .party-card.adc { border-color: var(--adc-green); transform: scale(1.02); box-shadow: 0 20px 60px rgba(0,135,81,0.15); }
+        .party-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
+        .party-position { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+        .party-card.adc .party-position { color: var(--adc-green); }
+        .party-card.apc .party-position { color: #1e3a8a; }
+        .party-card.pdp .party-position { color: #dc2626; }
+        .party-name { font-size: 1.5rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 1.5rem; }
+        .polling-number { font-size: 5rem; font-weight: 900; color: var(--deep-blue); line-height: 1; margin-bottom: 0.5rem; }
+        .trend { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1rem; margin-bottom: 2rem; }
+        .trend.up { color: var(--adc-green); }
         .trend.down { color: #dc2626; }
-        .trend.stable { color: #666; }
-        .detailed-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem; }
-        .stat-box { background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .stat-box-label { font-size: 0.875rem; color: #666; margin-bottom: 0.25rem; }
-        .stat-box-value { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; }
-        .lga-section { padding: 3rem 0; background: white; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
-        .section-title { font-size: 1.75rem; font-weight: 700; color: #1a1a1a; }
-        .filter-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .filter-btn { padding: 0.5rem 1rem; border: 1px solid #e5e5e5; background: white; border-radius: 6px; cursor: pointer; font-size: 0.875rem; transition: all 0.3s; }
-        .filter-btn:hover, .filter-btn.active { background: #008751; color: white; border-color: #008751; }
-        .lga-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
-        .lga-card { background: #f8f9fa; border-radius: 8px; padding: 1rem; border: 1px solid #e5e5e5; }
-        .lga-header { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
-        .lga-name { font-weight: 600; color: #1a1a1a; }
-        .lga-state { font-size: 0.75rem; color: #008751; background: rgba(0,135,81,0.1); padding: 0.25rem 0.5rem; border-radius: 4px; }
-        .lga-stats { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
+        .party-insights { font-size: 0.9rem; color: #666; line-height: 1.8; }
+        .party-insights strong { color: var(--deep-blue); }
+        
+        /* LGA Deep Dive - Exciting Grid */
+        .lga-section { padding: 8rem 2rem; background: linear-gradient(180deg, #f8f8f6 0%, var(--warm-white) 100%); }
+        .lga-header { max-width: 1400px; margin: 0 auto 3rem; display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 2rem; }
+        .lga-title-group { max-width: 600px; }
+        .lga-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        .lga-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #e8e8e5; transition: all 0.3s; }
+        .lga-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .lga-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .lga-name { font-size: 1.25rem; font-weight: 800; color: var(--deep-blue); }
+        .lga-state { background: rgba(0,135,81,0.1); color: var(--adc-green); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .lga-stats-row { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
         .lga-stat { flex: 1; }
-        .lga-stat-label { font-size: 0.75rem; color: #666; }
-        .lga-stat-value { font-size: 1rem; font-weight: 600; }
-        .adc-bar { height: 4px; background: #e5e5e5; border-radius: 2px; overflow: hidden; margin-top: 0.5rem; }
-        .adc-fill { height: 100%; background: #008751; border-radius: 2px; }
-        .media-section { padding: 3rem 0; background: #f8f9fa; }
-        .media-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid #e5e5e5; overflow-x: auto; }
-        .media-tab { padding: 0.75rem 1.5rem; cursor: pointer; border-bottom: 2px solid transparent; font-weight: 500; color: #666; white-space: nowrap; }
-        .media-tab.active { color: #008751; border-bottom-color: #008751; }
-        .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem; }
-        .media-card { background: white; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 3px solid; }
-        .media-card.positive { border-left-color: #008751; }
-        .media-card.neutral { border-left-color: #f59e0b; }
-        .media-card.negative { border-left-color: #dc2626; }
-        .media-source { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .source-icon { width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: white; }
-        .source-tv { background: #dc2626; }
-        .source-radio { background: #1e3a8a; }
-        .source-print { background: #1a1a1a; }
-        .source-social { background: #008751; }
-        .source-intl { background: #7c3aed; }
-        .source-name { font-size: 0.875rem; font-weight: 600; color: #1a1a1a; }
-        .sentiment-badge { margin-left: auto; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; font-weight: 500; }
-        .sentiment-badge.positive { background: rgba(0,135,81,0.1); color: #008751; }
-        .sentiment-badge.neutral { background: rgba(245,158,11,0.1); color: #f59e0b; }
-        .sentiment-badge.negative { background: rgba(220,38,38,0.1); color: #dc2626; }
-        .media-title { font-weight: 600; color: #1a1a1a; margin-bottom: 0.5rem; line-height: 1.4; }
-        .media-excerpt { font-size: 0.875rem; color: #666; margin-bottom: 0.5rem; }
-        .media-meta { font-size: 0.75rem; color: #999; }
-        .calculator-section { padding: 3rem 0; background: white; }
-        .calculator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        @media (max-width: 768px) { .calculator-grid { grid-template-columns: 1fr; } }
-        .calculator-form { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; }
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1a1a1a; font-size: 0.875rem; }
-        .form-group input, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #e5e5e5; border-radius: 6px; font-size: 1rem; background: white; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: #008751; }
-        .calculate-btn { width: 100%; padding: 0.875rem; background: #008751; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
-        .calculate-btn:hover { background: #006b41; }
-        .results-panel { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; display: none; }
-        .results-panel.show { display: block; }
-        .result-item { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e5e5; }
-        .result-item:last-child { border-bottom: none; }
-        .recommendations { margin-top: 1rem; padding: 1rem; background: rgba(0,135,81,0.05); border-radius: 6px; border-left: 3px solid #008751; }
-        .recommendations h4 { color: #008751; margin-bottom: 0.5rem; font-size: 0.875rem; }
-        .recommendations ul { list-style: none; font-size: 0.875rem; }
-        .recommendations li { padding: 0.25rem 0; padding-left: 1rem; position: relative; }
-        .recommendations li::before { content: "→"; position: absolute; left: 0; color: #008751; }
-        footer { background: #1a1a1a; color: white; padding: 2rem 0; text-align: center; }
-        footer a { color: #008751; }
-        .ai-status { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,135,81,0.1); color: #008751; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 500; }
-        .pulse { width: 8px; height: 8px; background: #008751; border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .lga-stat-value { font-size: 1.75rem; font-weight: 900; }
+        .lga-stat.adc { color: var(--adc-green); }
+        .lga-stat.apc { color: #1e3a8a; }
+        .lga-stat.pdp { color: #dc2626; }
+        .lga-stat-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
+        .progress-bar { height: 8px; background: #e8e8e5; border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
+        .progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+        .progress-fill.adc { background: var(--adc-green); }
+        
+        /* Media Section */
+        .media-section { padding: 8rem 2rem; background: white; }
+        .media-tabs { display: flex; gap: 1rem; margin-bottom: 3rem; border-bottom: 2px solid #e8e8e5; max-width: 1400px; margin: 0 auto 3rem; }
+        .media-tab { padding: 1rem 2rem; cursor: pointer; border-bottom: 3px solid transparent; font-weight: 700; color: #888; transition: all 0.3s; }
+        .media-tab.active { color: var(--adc-green); border-bottom-color: var(--adc-green); }
+        .media-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 2rem; }
+        .media-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e8e8e5; transition: all 0.3s; }
+        .media-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .media-header { padding: 1.5rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid #f0f0eb; }
+        .media-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.875rem; color: white; }
+        .media-icon.tv { background: #dc2626; }
+        .media-icon.radio { background: #1e3a8a; }
+        .media-icon.print { background: #1a1a2e; }
+        .media-icon.social { background: var(--adc-green); }
+        .media-icon.intl { background: #7c3aed; }
+        .media-source-info { flex: 1; }
+        .media-source-name { font-weight: 700; color: var(--deep-blue); }
+        .media-time { font-size: 0.75rem; color: #888; }
+        .sentiment { padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .sentiment.positive { background: rgba(0,135,81,0.1); color: var(--adc-green); }
+        .sentiment.neutral { background: rgba(212,175,55,0.1); color: var(--accent-gold); }
+        .media-content { padding: 1.5rem; }
+        .media-title { font-size: 1.125rem; font-weight: 700; color: var(--deep-blue); margin-bottom: 0.75rem; line-height: 1.4; }
+        .media-excerpt { color: #666; font-size: 0.9rem; line-height: 1.6; }
+        
+        /* Calculator Section */
+        .calc-section { padding: 8rem 2rem; background: linear-gradient(135deg, var(--adc-green) 0%, var(--adc-dark) 100%); color: white; position: relative; overflow: hidden; }
+        .calc-section::before { content: ""; position: absolute; top: -50%; right: -20%; width: 800px; height: 800px; background: rgba(255,255,255,0.03); border-radius: 50%; }
+        .calc-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative; z-index: 2; }
+        @media (max-width: 968px) { .calc-container { grid-template-columns: 1fr; } }
+        .calc-left h2 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; }
+        .calc-left p { font-size: 1.125rem; opacity: 0.9; line-height: 1.6; }
+        .calc-form { background: white; border-radius: 24px; padding: 3rem; color: #1a1a1a; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 0.5rem; color: var(--deep-blue); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-group input, .form-group select { width: 100%; padding: 1rem; border: 2px solid #e8e8e5; border-radius: 12px; font-size: 1rem; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--adc-green); }
+        .calc-btn { width: 100%; padding: 1.25rem; background: var(--adc-green); color: white; border: none; border-radius: 12px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.05em; }
+        .calc-btn:hover { background: var(--adc-dark); transform: translateY(-2px); }
+        .results-panel { margin-top: 2rem; padding: 2rem; background: #f8f8f6; border-radius: 16px; display: none; }
+        .results-panel.show { display: block; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .result-row { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid #e8e8e5; font-size: 1.125rem; }
+        .result-row:last-child { border-bottom: none; }
+        .result-label { font-weight: 600; color: #666; }
+        .result-value { font-weight: 800; color: var(--deep-blue); }
+        .strategy-box { margin-top: 1.5rem; padding: 1.5rem; background: rgba(0,135,81,0.1); border-radius: 12px; border-left: 4px solid var(--adc-green); }
+        .strategy-box h4 { color: var(--adc-green); font-weight: 800; margin-bottom: 1rem; }
+        .strategy-box ul { list-style: none; }
+        .strategy-box li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; font-size: 0.9rem; }
+        .strategy-box li::before { content: "→"; position: absolute; left: 0; color: var(--adc-green); font-weight: 700; }
+        
+        /* Blog Section */
+        .blog-section { padding: 8rem 2rem; background: #f8f8f6; }
+        .blog-header { max-width: 1400px; margin: 0 auto 4rem; text-align: center; }
+        .blog-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+        .blog-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .blog-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        .blog-image { height: 200px; background: linear-gradient(135deg, var(--adc-green) 0%, var(--adc-dark) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+        .blog-content { padding: 2rem; }
+        .blog-category { color: var(--adc-green); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+        .blog-title { font-size: 1.25rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 1rem; line-height: 1.3; }
+        .blog-excerpt { color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .blog-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.75rem; color: #888; }
+        
+        /* Final CTA */
+        .final-cta { padding: 6rem 2rem; background: var(--deep-blue); color: white; text-align: center; position: relative; overflow: hidden; }
+        .final-cta::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>'); background-size: 100px; opacity: 0.5; }
+        .final-cta-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .final-cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.5rem; }
+        .final-cta p { font-size: 1.25rem; opacity: 0.8; margin-bottom: 2rem; }
+        .final-cta .btn-primary { font-size: 1.25rem; padding: 1.5rem 3rem; }
+        
+        /* Footer */
+        footer { background: #0a0a14; color: #888; padding: 4rem 2rem 2rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+        @media (max-width: 968px) { .footer-content { grid-template-columns: 1fr; } }
+        .footer-brand .logo { margin-bottom: 1rem; color: white; }
+        .footer-brand p { line-height: 1.6; font-size: 0.9rem; }
+        .footer-links h4 { color: white; font-weight: 700; margin-bottom: 1.5rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a { color: #888; text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--adc-green); }
+        .footer-bottom { max-width: 1400px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid #222; text-align: center; font-size: 0.875rem; }
+        
+        /* AI Status */
+        .ai-pulse { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,135,81,0.1); color: var(--adc-green); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: 0.875rem; }
+        .pulse-dot { width: 8px; height: 8px; background: var(--adc-green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
-    <div class="flag-corner"><div class="flag-green"></div><div class="flag-white"></div></div>
+    <div class="flag-ribbon"></div>
     
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#008751" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                WhichWayNigeria
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#dashboard">Dashboard</a></li>
-                    <li><a href="#polling">Polling</a></li>
-                    <li><a href="#lga">LGA Data</a></li>
-                    <li><a href="#media">Media</a></li>
-                    <li><a href="#calculator">Calculator</a></li>
-                </ul>
-            </nav>
-            <div class="ai-status"><div class="pulse"></div><span id="ai-status">AI Active</span></div>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">WhichWayNigeria</div>
+            <ul class="nav-links">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#polling">Polling Data</a></li>
+                <li><a href="#lga">LGA Insights</a></li>
+                <li><a href="#media">Media Watch</a></li>
+                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#blog">Updates</a></li>
+                <li><a href="https://adcregistration.ng/registration/membership" class="cta-nav" target="_blank">Join ADC →</a></li>
+            </ul>
+            <div class="ai-pulse"><div class="pulse-dot"></div>Live AI Analysis</div>
         </div>
-    </header>
+    </nav>
 
-    <div class="slider-container">
-        <div class="slider" id="slider">
-            <div class="slide" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 500%22><rect fill=%22%23008751%22 width=%221200%22 height=%22500%22/><text x=%22600%22 y=%22250%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22>Building a New Nigeria</text></svg>');">
-                <div class="slide-content"><h2>Building a New Nigeria Together</h2><p>Join the ADC movement for change and progress in 2027</p></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-text">CHANGE</div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Nigeria Deserves Better</div>
+            <h1 class="hero-headline">Your Vote Is Your Voice. <span>Make It Count.</span></h1>
+            <p class="hero-subtext">The 2027 election isn't just about choosing leaders—it's about choosing the future you want for your family, your community, and Nigeria. Be part of the movement for accountable governance and real progress.</p>
+            <div class="hero-cta-group">
+                <a href="https://adcregistration.ng/registration/membership" target="_blank" class="btn-primary">Register With ADC Today →</a>
+                <a href="#polling" class="btn-secondary">See The Data</a>
             </div>
-            <div class="slide" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 500%22><rect fill=%22%231e3a8a%22 width=%221200%22 height=%22500%22/><text x=%22600%22 y=%22250%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22>Real-Time Polling Data</text></svg>');">
-                <div class="slide-content"><h2>Real-Time Polling Intelligence</h2><p>AI-powered analysis across all 774 LGAs in Nigeria</p></div>
-            </div>
-            <div class="slide" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 500%22><rect fill=%22%23dc2626%22 width=%221200%22 height=%22500%22/><text x=%22600%22 y=%22250%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22>Register to Vote</text></svg>');">
-                <div class="slide-content"><h2>Your Vote, Your Future</h2><p>Register with ADC and be part of the solution</p></div>
-            </div>
-        </div>
-        <div class="slider-dots"><div class="dot active" onclick="goToSlide(0)"></div><div class="dot" onclick="goToSlide(1)"></div><div class="dot" onclick="goToSlide(2)"></div></div>
-    </div>
-
-    <section id="dashboard" class="stats-section">
-        <div class="container">
-            <div class="stats-header"><h2>National Polling Comparison - 2027 Presidential Election</h2><p>Real-time aggregate from 15+ polling sources across Nigeria</p></div>
-            <div class="party-comparison">
-                <div class="party-card adc"><div class="party-name">ADC (African Democratic Congress)</div><div class="polling-number" id="adc-polling">42.3%</div><div class="trend up"><span>↑</span> +4.2% this month</div><div style="margin-top: 1rem; font-size: 0.875rem; color: #666;"><strong>Projection:</strong> Leading in 18 states<br><strong>Youth (18-35):</strong> 48% support<br><strong>Momentum:</strong> High</div></div>
-                <div class="party-card apc"><div class="party-name">APC (All Progressives Congress)</div><div class="polling-number" id="apc-polling">35.1%</div><div class="trend down"><span>↓</span> -2.8% this month</div><div style="margin-top: 1rem; font-size: 0.875rem; color: #666;"><strong>Projection:</strong> Leading in 12 states<br><strong>60+ age group:</strong> 41% support<br><strong>Momentum:</strong> Declining</div></div>
-                <div class="party-card pdp"><div class="party-name">PDP (Peoples Democratic Party)</div><div class="polling-number" id="pdp-polling">18.7%</div><div class="trend stable"><span>→</span> +0.3% this month</div><div style="margin-top: 1rem; font-size: 0.875rem; color: #666;"><strong>Projection:</strong> Leading in 6 states<br><strong>Urban centers:</strong> 24% support<br><strong>Momentum:</strong> Stable</div></div>
-            </div>
-            <div class="detailed-stats">
-                <div class="stat-box"><div class="stat-box-label">Total Registered Voters</div><div class="stat-box-value">98.4 Million</div></div>
-                <div class="stat-box"><div class="stat-box-label">ADC Members Nationwide</div><div class="stat-box-value">12.6 Million</div></div>
-                <div class="stat-box"><div class="stat-box-label">New Registrations (2025)</div><div class="stat-box-value">2.7 Million</div></div>
-                <div class="stat-box"><div class="stat-box-label">Youth Voters (18-35)</div><div class="stat-box-value">45.3 Million</div></div>
-                <div class="stat-box"><div class="stat-box-label">States ADC Leads</div><div class="stat-box-value">18 States + FCT</div></div>
-                <div class="stat-box"><div class="stat-box-label">Daily Polling Coverage</div><div class="stat-box-value">774 LGAs</div></div>
-            </div>
-            <div style="text-align: center; margin-top: 2rem;"><a href="https://adcregistration.ng/registration/membership" target="_blank" class="calculate-btn" style="display: inline-block; width: auto; padding: 1rem 2rem; text-decoration: none;">Register with ADC Officially →</a></div>
         </div>
     </section>
 
-    <section id="lga" class="lga-section">
-        <div class="container">
-            <div class="section-header"><h2 class="section-title">LGA-Level Deep Dive: Polling & Registration</h2><div class="filter-buttons"><button class="filter-btn active" onclick="filterLGA('all')">All Regions</button><button class="filter-btn" onclick="filterLGA('north')">North</button><button class="filter-btn" onclick="filterLGA('south')">South</button><button class="filter-btn" onclick="filterLGA('east')">East</button><button class="filter-btn" onclick="filterLGA('west')">West</button></div></div>
-            <div class="lga-grid" id="lga-grid"></div>
-        </div>
-    </section>
-
-    <section id="media" class="media-section">
-        <div class="container">
-            <h2 class="section-title">Comprehensive Media Coverage Analysis</h2>
-            <p style="color: #666; margin-bottom: 1.5rem;">Aggregating from TV, Radio, Print, Social Media & International sources with Nigeria presence</p>
-            <div class="media-tabs"><div class="media-tab active" onclick="filterMedia('all')">All Sources</div><div class="media-tab" onclick="filterMedia('tv')">TV</div><div class="media-tab" onclick="filterMedia('radio')">Radio</div><div class="media-tab" onclick="filterMedia('print')">Print</div><div class="media-tab" onclick="filterMedia('social')">Social</div><div class="media-tab" onclick="filterMedia('intl')">International</div></div>
-            <div class="media-grid" id="media-grid"></div>
-        </div>
-    </section>
-
-    <section id="calculator" class="calculator-section">
-        <div class="container">
-            <h2 class="section-title">LGA Registration Performance Calculator</h2>
-            <div class="calculator-grid">
-                <div class="calculator-form">
-                    <form id="calc-form">
-                        <div class="form-group"><label>Select State</label><select id="state" required><option value="">Choose a state</option><option value="Abia">Abia</option><option value="Adamawa">Adamawa</option><option value="Akwa Ibom">Akwa Ibom</option><option value="Anambra">Anambra</option><option value="Bauchi">Bauchi</option><option value="Bayelsa">Bayelsa</option><option value="Benue">Benue</option><option value="Borno">Borno</option><option value="Cross River">Cross River</option><option value="Delta">Delta</option><option value="Ebonyi">Ebonyi</option><option value="Edo">Edo</option><option value="Ekiti">Ekiti</option><option value="Enugu">Enugu</option><option value="Gombe">Gombe</option><option value="Imo">Imo</option><option value="Jigawa">Jigawa</option><option value="Kaduna">Kaduna</option><option value="Kano">Kano</option><option value="Katsina">Katsina</option><option value="Kebbi">Kebbi</option><option value="Kogi">Kogi</option><option value="Kwara">Kwara</option><option value="Lagos">Lagos</option><option value="Nasarawa">Nasarawa</option><option value="Niger">Niger</option><option value="Ogun">Ogun</option><option value="Ondo">Ondo</option><option value="Osun">Osun</option><option value="Oyo">Oyo</option><option value="Plateau">Plateau</option><option value="Rivers">Rivers</option><option value="Sokoto">Sokoto</option><option value="Taraba">Taraba</option><option value="Yobe">Yobe</option><option value="Zamfara">Zamfara</option><option value="FCT">FCT Abuja</option></select></div>
-                        <div class="form-group"><label>LGA Name</label><input type="text" id="lga-name" placeholder="e.g., Ikeja" required /></div>
-                        <div class="form-group"><label>Total Eligible Voters in LGA</label><input type="number" id="population" placeholder="e.g., 50000" required /></div>
-                        <div class="form-group"><label>Target Registration (%)</label><input type="number" id="target" value="60" min="1" max="100" /></div>
-       
+    <!-- Stats Ticker -->
+    <div class="stats-ticker">
+        <div class="ticker-content">
+            <div class="ticker-item"><span class="ticker-number">98.4M</span> Registered Voters</div>
+            <div class="ticker-item"><span class="ticker-number">774</span> LGAs Covered</div>
+            <div class="ticker-item"><span class="ticker-number">42.3%</span> ADC National Polling</div>
+            <div class="tic
