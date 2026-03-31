@@ -1,226 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhichWayNigeria - Be The Change | ADC 2027</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <title>WhichWayNigeria - Be The Change</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        lemon: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --adc-green: #008751; --adc-dark: #006b41; --nigerian-green: #008751; --deep-blue: #1a1a2e; --warm-white: #fafaf9; --accent-gold: #d4af37; }
-        body { font-family: 'Inter', sans-serif; background: var(--warm-white); color: #1a1a1a; overflow-x: hidden; }
-        
-        /* Nigerian Flag Ribbon */
-        .flag-ribbon { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--nigerian-green) 33%, white 33%, white 66%, var(--nigerian-green) 66%); z-index: 9999; }
-        
-        /* Navigation */
-        nav { position: fixed; top: 4px; left: 0; right: 0; background: rgba(250,250,249,0.95); backdrop-filter: blur(20px); z-index: 1000; padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .nav-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 900; font-size: 1.5rem; color: var(--adc-green); letter-spacing: -0.02em; }
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-links a { color: #444; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; text-transform: uppercase; letter-spacing: 0.05em; }
-        .nav-links a:hover { color: var(--adc-green); }
-        .cta-nav { background: var(--adc-green); color: white !important; padding: 0.75rem 1.5rem; border-radius: 50px; }
-        .cta-nav:hover { background: var(--adc-dark); }
-        
-        /* Hero Section - MASSIVE Typography */
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 8rem 2rem 4rem; background: linear-gradient(135deg, var(--warm-white) 0%, #f0f0eb 100%); overflow: hidden; }
-        .hero-bg-text { position: absolute; font-size: 20vw; font-weight: 900; color: rgba(0,135,81,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; font-family: 'Playfair Display', serif; }
-        .hero-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
-        .hero-eyebrow { color: var(--adc-green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
-        .hero-eyebrow::before { content: ""; width: 50px; height: 2px; background: var(--adc-green); }
-        .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; line-height: 0.95; color: var(--deep-blue); margin-bottom: 2rem; letter-spacing: -0.03em; }
-        .hero-headline span { color: var(--adc-green); display: block; }
-        .hero-subtext { font-size: clamp(1.125rem, 2vw, 1.5rem); color: #555; max-width: 600px; line-height: 1.6; margin-bottom: 3rem; font-weight: 400; }
-        .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .btn-primary { background: var(--adc-green); color: white; padding: 1.25rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid var(--adc-green); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,135,81,0.3); }
-        .btn-secondary { background: transparent; color: var(--deep-blue); padding: 1.25rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem; border: 2px solid var(--deep-blue); transition: all 0.3s; }
-        .btn-secondary:hover { background: var(--deep-blue); color: white; }
-        
-        /* Stats Ticker */
-        .stats-ticker { background: var(--deep-blue); color: white; padding: 2rem 0; overflow: hidden; }
-        .ticker-content { display: flex; gap: 4rem; animation: ticker 30s linear infinite; white-space: nowrap; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .ticker-item { display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.125rem; }
-        .ticker-number { font-size: 2rem; color: var(--adc-green); }
-        
-        /* Polling Section - Bold Cards */
-        .polling-section { padding: 8rem 2rem; background: white; }
-        .section-header { max-width: 1400px; margin: 0 auto 4rem; text-align: center; }
-        .section-eyebrow { color: var(--adc-green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; color: var(--deep-blue); line-height: 1.1; }
-        .polling-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        @media (max-width: 968px) { .polling-grid { grid-template-columns: 1fr; } .nav-links { display: none; } }
-        .party-card { background: white; border-radius: 24px; padding: 3rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 2px solid #f0f0eb; transition: all 0.3s; position: relative; overflow: hidden; }
-        .party-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; }
-        .party-card.adc::before { background: var(--adc-green); }
-        .party-card.apc::before { background: #1e3a8a; }
-        .party-card.pdp::before { background: #dc2626; }
-        .party-card.adc { border-color: var(--adc-green); transform: scale(1.02); box-shadow: 0 20px 60px rgba(0,135,81,0.15); }
-        .party-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
-        .party-position { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
-        .party-card.adc .party-position { color: var(--adc-green); }
-        .party-card.apc .party-position { color: #1e3a8a; }
-        .party-card.pdp .party-position { color: #dc2626; }
-        .party-name { font-size: 1.5rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 1.5rem; }
-        .polling-number { font-size: 5rem; font-weight: 900; color: var(--deep-blue); line-height: 1; margin-bottom: 0.5rem; }
-        .trend { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1rem; margin-bottom: 2rem; }
-        .trend.up { color: var(--adc-green); }
-        .trend.down { color: #dc2626; }
-        .party-insights { font-size: 0.9rem; color: #666; line-height: 1.8; }
-        .party-insights strong { color: var(--deep-blue); }
-        
-        /* LGA Deep Dive - Exciting Grid */
-        .lga-section { padding: 8rem 2rem; background: linear-gradient(180deg, #f8f8f6 0%, var(--warm-white) 100%); }
-        .lga-header { max-width: 1400px; margin: 0 auto 3rem; display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 2rem; }
-        .lga-title-group { max-width: 600px; }
-        .lga-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
-        .lga-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #e8e8e5; transition: all 0.3s; }
-        .lga-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .lga-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .lga-name { font-size: 1.25rem; font-weight: 800; color: var(--deep-blue); }
-        .lga-state { background: rgba(0,135,81,0.1); color: var(--adc-green); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-        .lga-stats-row { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
-        .lga-stat { flex: 1; }
-        .lga-stat-value { font-size: 1.75rem; font-weight: 900; }
-        .lga-stat.adc { color: var(--adc-green); }
-        .lga-stat.apc { color: #1e3a8a; }
-        .lga-stat.pdp { color: #dc2626; }
-        .lga-stat-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
-        .progress-bar { height: 8px; background: #e8e8e5; border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
-        .progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
-        .progress-fill.adc { background: var(--adc-green); }
-        
-        /* Media Section */
-        .media-section { padding: 8rem 2rem; background: white; }
-        .media-tabs { display: flex; gap: 1rem; margin-bottom: 3rem; border-bottom: 2px solid #e8e8e5; max-width: 1400px; margin: 0 auto 3rem; }
-        .media-tab { padding: 1rem 2rem; cursor: pointer; border-bottom: 3px solid transparent; font-weight: 700; color: #888; transition: all 0.3s; }
-        .media-tab.active { color: var(--adc-green); border-bottom-color: var(--adc-green); }
-        .media-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 2rem; }
-        .media-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e8e8e5; transition: all 0.3s; }
-        .media-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-        .media-header { padding: 1.5rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid #f0f0eb; }
-        .media-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.875rem; color: white; }
-        .media-icon.tv { background: #dc2626; }
-        .media-icon.radio { background: #1e3a8a; }
-        .media-icon.print { background: #1a1a2e; }
-        .media-icon.social { background: var(--adc-green); }
-        .media-icon.intl { background: #7c3aed; }
-        .media-source-info { flex: 1; }
-        .media-source-name { font-weight: 700; color: var(--deep-blue); }
-        .media-time { font-size: 0.75rem; color: #888; }
-        .sentiment { padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-        .sentiment.positive { background: rgba(0,135,81,0.1); color: var(--adc-green); }
-        .sentiment.neutral { background: rgba(212,175,55,0.1); color: var(--accent-gold); }
-        .media-content { padding: 1.5rem; }
-        .media-title { font-size: 1.125rem; font-weight: 700; color: var(--deep-blue); margin-bottom: 0.75rem; line-height: 1.4; }
-        .media-excerpt { color: #666; font-size: 0.9rem; line-height: 1.6; }
-        
-        /* Calculator Section */
-        .calc-section { padding: 8rem 2rem; background: linear-gradient(135deg, var(--adc-green) 0%, var(--adc-dark) 100%); color: white; position: relative; overflow: hidden; }
-        .calc-section::before { content: ""; position: absolute; top: -50%; right: -20%; width: 800px; height: 800px; background: rgba(255,255,255,0.03); border-radius: 50%; }
-        .calc-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative; z-index: 2; }
-        @media (max-width: 968px) { .calc-container { grid-template-columns: 1fr; } }
-        .calc-left h2 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; }
-        .calc-left p { font-size: 1.125rem; opacity: 0.9; line-height: 1.6; }
-        .calc-form { background: white; border-radius: 24px; padding: 3rem; color: #1a1a1a; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-weight: 700; margin-bottom: 0.5rem; color: var(--deep-blue); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        .form-group input, .form-group select { width: 100%; padding: 1rem; border: 2px solid #e8e8e5; border-radius: 12px; font-size: 1rem; transition: border-color 0.3s; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--adc-green); }
-        .calc-btn { width: 100%; padding: 1.25rem; background: var(--adc-green); color: white; border: none; border-radius: 12px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.05em; }
-        .calc-btn:hover { background: var(--adc-dark); transform: translateY(-2px); }
-        .results-panel { margin-top: 2rem; padding: 2rem; background: #f8f8f6; border-radius: 16px; display: none; }
-        .results-panel.show { display: block; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .result-row { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid #e8e8e5; font-size: 1.125rem; }
-        .result-row:last-child { border-bottom: none; }
-        .result-label { font-weight: 600; color: #666; }
-        .result-value { font-weight: 800; color: var(--deep-blue); }
-        .strategy-box { margin-top: 1.5rem; padding: 1.5rem; background: rgba(0,135,81,0.1); border-radius: 12px; border-left: 4px solid var(--adc-green); }
-        .strategy-box h4 { color: var(--adc-green); font-weight: 800; margin-bottom: 1rem; }
-        .strategy-box ul { list-style: none; }
-        .strategy-box li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; font-size: 0.9rem; }
-        .strategy-box li::before { content: "→"; position: absolute; left: 0; color: var(--adc-green); font-weight: 700; }
-        
-        /* Blog Section */
-        .blog-section { padding: 8rem 2rem; background: #f8f8f6; }
-        .blog-header { max-width: 1400px; margin: 0 auto 4rem; text-align: center; }
-        .blog-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
-        .blog-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
-        .blog-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
-        .blog-image { height: 200px; background: linear-gradient(135deg, var(--adc-green) 0%, var(--adc-dark) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
-        .blog-content { padding: 2rem; }
-        .blog-category { color: var(--adc-green); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
-        .blog-title { font-size: 1.25rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 1rem; line-height: 1.3; }
-        .blog-excerpt { color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
-        .blog-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.75rem; color: #888; }
-        
-        /* Final CTA */
-        .final-cta { padding: 6rem 2rem; background: var(--deep-blue); color: white; text-align: center; position: relative; overflow: hidden; }
-        .final-cta::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>'); background-size: 100px; opacity: 0.5; }
-        .final-cta-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
-        .final-cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.5rem; }
-        .final-cta p { font-size: 1.25rem; opacity: 0.8; margin-bottom: 2rem; }
-        .final-cta .btn-primary { font-size: 1.25rem; padding: 1.5rem 3rem; }
-        
-        /* Footer */
-        footer { background: #0a0a14; color: #888; padding: 4rem 2rem 2rem; }
-        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
-        @media (max-width: 968px) { .footer-content { grid-template-columns: 1fr; } }
-        .footer-brand .logo { margin-bottom: 1rem; color: white; }
-        .footer-brand p { line-height: 1.6; font-size: 0.9rem; }
-        .footer-links h4 { color: white; font-weight: 700; margin-bottom: 1.5rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; }
-        .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 0.75rem; }
-        .footer-links a { color: #888; text-decoration: none; transition: color 0.3s; }
-        .footer-links a:hover { color: var(--adc-green); }
-        .footer-bottom { max-width: 1400px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid #222; text-align: center; font-size: 0.875rem; }
-        
-        /* AI Status */
-        .ai-pulse { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,135,81,0.1); color: var(--adc-green); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: 0.875rem; }
-        .pulse-dot { width: 8px; height: 8px; background: var(--adc-green); border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .hex-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15L30 0z' fill-opacity='0.05' fill='%2316a34a'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #facc15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .section-number {
+            font-variant-numeric: tabular-nums;
+        }
     </style>
 </head>
-<body>
-    <div class="flag-ribbon"></div>
-    
-    <nav>
-        <div class="nav-container">
-            <div class="logo">WhichWayNigeria</div>
-            <ul class="nav-links">
-                <li><a href="#dashboard">Dashboard</a></li>
-                <li><a href="#polling">Polling Data</a></li>
-                <li><a href="#lga">LGA Insights</a></li>
-                <li><a href="#media">Media Watch</a></li>
-                <li><a href="#calculator">Calculator</a></li>
-                <li><a href="#blog">Updates</a></li>
-                <li><a href="https://adcregistration.ng/registration/membership" class="cta-nav" target="_blank">Join ADC →</a></li>
-            </ul>
-            <div class="ai-pulse"><div class="pulse-dot"></div>Live AI Analysis</div>
+<body class="bg-white text-gray-900 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-primary-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center text-white font-bold text-xl">W</div>
+                    <span class="font-bold text-xl tracking-tight text-gray-900">WhichWay<span class="text-primary-600">Nigeria</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Overview</a>
+                    <a href="#problem" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Problem</a>
+                    <a href="#features" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Features</a>
+                    <a href="#metrics" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Impact</a>
+                </div>
+                <button class="bg-primary-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-700 transition-all hover:shadow-lg hover:shadow-primary-200">
+                    Register with ADC
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg-text">CHANGE</div>
-        <div class="hero-content">
-            <div class="hero-eyebrow">Nigeria Deserves Better</div>
-            <h1 class="hero-headline">Your Vote Is Your Voice. <span>Make It Count.</span></h1>
-            <p class="hero-subtext">The 2027 election isn't just about choosing leaders—it's about choosing the future you want for your family, your community, and Nigeria. Be part of the movement for accountable governance and real progress.</p>
-            <div class="hero-cta-group">
-                <a href="https://adcregistration.ng/registration/membership" target="_blank" class="btn-primary">Register With ADC Today →</a>
-                <a href="#polling" class="btn-secondary">See The Data</a>
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden hex-pattern">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-50/50 via-white to-lemon-400/10"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center space-x-2 bg-primary-100 text-primary-800 px-4 py-2 rounded-full text-sm font-semibold">
+                        <span class="w-2 h-2 bg-primary-600 rounded-full animate-pulse"></span>
+                        <span>2027 Election Movement</span>
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-black leading-tight tracking-tight">
+                        Nigeria <span class="text-gradient">Deserves</span> Better
+                    </h1>
+                    
+                    <p class="text-xl text-gray-600 leading-relaxed max-w-lg">
+                        The 2027 election isn't just about choosing leaders—it's about choosing the future you want for your family, your community, and Nigeria.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-primary-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-700 transition-all hover:shadow-xl hover:shadow-primary-200 flex items-center justify-center space-x-2 group">
+                            <span>Register With ADC</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </button>
+                        <button class="bg-white text-gray-900 border-2 border-gray-200 px-8 py-4 rounded-full font-bold text-lg hover:border-primary-600 hover:text-primary-600 transition-all">
+                            See The Data
+                        </button>
+                    </div>
+
+                    <div class="flex items-center space-x-4 pt-4">
+                        <div class="flex -space-x-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" class="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" class="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User">
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900">10,000+ Citizens</p>
+                            <p class="text-sm text-gray-600">Already registered</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Mockup -->
+                <div class="relative flex justify-center lg:justify-end">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-400 to-lemon-400 rounded-full blur-3xl opacity-20 animate-pulse-slow"></div>
+                    <div class="relative animate-float">
+                        <div class="bg-gray-900 rounded-[3rem] p-3 shadow-2xl shadow-primary-900/20 w-72 h-[600px] relative overflow-hidden border-4 border-gray-800">
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-7 bg-gray-900 rounded-b-2xl z-20"></div>
+                            <div class="bg-white rounded-[2.5rem] h-full w-full overflow-hidden relative">
+                                <!-- Mock Content -->
+                                <div class="bg-gradient-to-br from-primary-600 to-primary-800 h-40 relative p-6">
+                                    <div class="text-white font-bold text-lg mb-2">WhichWayNigeria</div>
+                                    <div class="text-primary-100 text-sm">Your Vote Is Your Voice</div>
+                                    <div class="absolute -bottom-10 left-6 right-6 bg-white rounded-2xl shadow-lg p-4">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-xs font-semibold text-gray-500">PVC COLLECTION</span>
+                                            <span class="text-xs text-primary-600 font-bold">LIVE</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-primary-600 h-2 rounded-full" style="width: 68%"></div>
+                                        </div>
+                                        <div class="mt-2 text-sm font-bold text-gray-900">68% Registered</div>
+                                    </div>
+                                </div>
+                                <div class="pt-12 px-6 space-y-4">
+                                    <div class="flex items-center space-x-3 p-3 bg-primary-50 rounded-xl">
+                                        <div class="w-10 h-10 bg-lemon-400 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                                        <div>
+                                            <div class="font-semibold text-sm">Check Voter Status</div>
+                                            <div class="text-xs text-gray-500">Verify your registration</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
+                                        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-gray-600">Locate Polling Unit</div>
+                                            <div class="text-xs text-gray-400">Find where to vote</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
+                                        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-gray-600">Know Your Candidates</div>
+                                            <div class="text-xs text-gray-400">ADC 2027 Manifesto</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-6 left-6 right-6">
+                                    <button class="w-full bg-primary-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-primary-200">Get Started</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Floating Elements -->
+                        <div class="absolute -right-4 top-20 bg-white p-3 rounded-2xl shadow-xl animate-float" style="animation-delay: 1s;">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-lemon-400 rounded-full flex items-center justify-center text-white">✓</div>
+                                <span class="text-xs font-bold text-gray-800">PVC Verified</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Ticker -->
-    <div class="stats-ticker">
-        <div class="ticker-content">
-            <div class="ticker-item"><span class="ticker-number">98.4M</span> Registered Voters</div>
-            <div class="ticker-item"><span class="ticker-number">774</span> LGAs Covered</div>
-            <div class="ticker-item"><span class="ticker-number">42.3%</span> ADC National Polling</div>
-            <div class="tic
+    <!-- Project Overview -->
+    <section id="overview" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-start space-x-4 mb-16">
+                <span class="section-number text-primary-600 font-bold text-lg">/01/</span>
+                <div>
+                    <h2 class="text-sm font-bold text-gray-500 tracking-widest uppercase mb-2">Project Overview</h2>
+                    <p class="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight max-w-3xl">
+                        <span class="text-primary-600">WhichWayNigeria</span> is a civic engagement platform that empowers citizens to explore electoral data, verify voter registration, engage with political discourse, and track the evolving pulse of Nigeria's democratic journey.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 border-t border-gray-200 pt-12">
+                <div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-1">Project</div>
+                    <div class="font-semibold text-gray-900">Civic Tech Platform</div>
+                </div>
+                <div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-1">Location</div>
+                    <div class="font-semibold text-gray-900">Nigeria</div>
+                </div>
+                <div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-1">Date</div>
+                    <div class="font-semibold text-gray-900">2025 – Ongoing</div>
+                </div>
+                <div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-1">Industry</div>
+                    <div class="font-semibold text-gray-900">Politics / Civic Tech</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Definition -->
+    <section id="problem" class="py-24 bg-primary-50/30 hex-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-start space-x-4 mb-16">
+                <span class="section-number text-primary-600 font-bold text-lg">/02/</span>
+                <h2 class="text-sm font-bold text-gray-500 tracking-widest uppercase">Problem Definition</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-4xl font-bold text-gray-900 mb-6">Problem</h3>
+                    <p class="text-xl text-gray-600 leading-relaxed">
+                        Staying informed about Nigeria's electoral process is scattered across platforms, leaving citizens without a unified, reliable space for civic engagement and voter education.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-4xl font-bold text-primary-600 mb-6">Solution</h3>
+                    <p class="text-xl text-gray-600 leading-relaxed">
+                        WhichWayNigeria delivers real-time electoral data discovery, transparent candidate information, and community connection in one seamless platform.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-20 relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-96 h-96 bg-gradient-to-r from-primary-200 to-lemon-200 rounded-full blur-3xl opacity-30"></div>
+                </div>
+                <div class="relative grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-3xl shadow-xl shadow-primary-900/5">
+                        <div class="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center text-primary-600 mb-6">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">PVC Verification</h4>
+                        <p class="text-gray-600 text-sm">Instant voter registration status checking with INEC database integration.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-xl shadow-primary-900/5 mt-8 md:mt-0">
+                        <div class="w-14 h-14 bg-lemon-400/20 rounded-2xl flex items-center justify-center text-lemon-600 mb-6">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Polling Unit Locator</h4>
+                        <p class="text-gray-600 text-sm">Find your exact voting location using GPS and ward mapping technology.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-xl shadow-primary-900/5">
+                        <div class="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center text-primary-600 mb-6">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Candidate Profiles</h4>
+                        <p class="text-gray-600 text-sm">Comprehensive ADC candidate information and manifesto comparisons.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Process -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-start space-x-4 mb-16">
+                <span class="section-number text-primary-600 font-bold text-lg">/03/</span>
+                <h2 class="text-sm font-bold text-gray-500 tracking-widest uppercase">Design Process & Timeline</h2>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between p-6 border-b border-gray-100 hover:bg-primary-50/50 transition-colors rounded-xl">
+                    <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                        <span class="text-primary-600 font-bold text-lg">RESEARCH</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-900 font-semibold">COMPLETED</span>
+                        <span class="text-gray-500 text-sm">/user needs & market analysis/</span>
+                    </div>
+                </div>
+                <div class="flex f
